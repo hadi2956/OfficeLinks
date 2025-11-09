@@ -423,75 +423,27 @@
 </div>
 
   <script>
-    // === Clock ===
-    function updateClock() {
-      const now = new Date();
-      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const dayName = dayNames[now.getDay()];
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const date = now.toLocaleDateString();
-      // Clock element is hidden but JS still updates it if needed
-      // document.getElementById("clock").textContent = `${dayName}, ${date} - ${time}`; 
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    // === Monthly Reset Logic ===
+const now = new Date();
+const currentMonth = now.getMonth();
+const currentYear = now.getFullYear();
 
-    // === Sales Tracking ===
-    const TARGET = 30;
-    let completed = parseInt(localStorage.getItem('completedSales')) || 0;
+// Check last saved month
+const lastSavedMonth = localStorage.getItem('lastSavedMonth');
+const lastSavedYear = localStorage.getItem('lastSavedYear');
 
-    function updateRemaining() {
-      const remaining = Math.max(0, TARGET - completed);
-      document.getElementById("remaining").textContent = `Remaining Target: ${remaining}`;
-    }
+// If it's a new month or first run — reset progress
+if (lastSavedMonth === null || parseInt(lastSavedMonth) !== currentMonth || parseInt(lastSavedYear) !== currentYear) {
+  localStorage.setItem('completedSales', 0);
+  localStorage.setItem('lastSavedMonth', currentMonth);
+  localStorage.setItem('lastSavedYear', currentYear);
+}
 
-    document.getElementById("salesForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const input = document.getElementById("salesDone");
-      const sales = parseInt(input.value, 10);
-      if (!isNaN(sales) && sales > 0) {
-        completed += sales;
-        if (completed > TARGET) completed = TARGET;
-        localStorage.setItem('completedSales', completed);
-        updateRemaining();
-        updateWorkdays();
-        input.value = 1;
-      }
-    });
+// After this, we safely get the current progress
+let completed = parseInt(localStorage.getItem('completedSales')) || 0;
 
-    // === Workday Calculation ===
-    function getRemainingWorkdays() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      // Find the 26th of the current month
-      const endDate = new Date(year, month, 26);
-      let count = 0;
-
-      // If today is past the 26th, there are 0 remaining workdays for this period
-      if (today > endDate) return 0; 
-      
-      // Start counting from today
-      let current = new Date(today);
-      while (current <= endDate) {
-        // Friday is day 5 (0=Sunday, 6=Saturday). We count all days EXCEPT Friday.
-        if (current.getDay() !== 5) { 
-          count++;
-        }
-        current.setDate(current.getDate() + 1);
-      }
-      return count;
-    }
-
-    function updateWorkdays() {
-      const workdays = getRemainingWorkdays();
-      document.getElementById("workdays").textContent = `Remaining Workdays (till 26th): ${workdays}`;
-    }
-
-    // === Init on Load ===
-    updateRemaining();
-    updateWorkdays();
   </script>
 
 </body>
+
 </html>
