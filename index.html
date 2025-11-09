@@ -422,28 +422,7 @@
     <a href="https://www.facebook.com/groups/240437004032883/" target="_blank"><button>Group 37</button></a>
 </div>
 
-  <script>
-    // === Monthly Reset Logic ===
-const now = new Date();
-const currentMonth = now.getMonth();
-const currentYear = now.getFullYear();
-
-// Check last saved month
-const lastSavedMonth = localStorage.getItem('lastSavedMonth');
-const lastSavedYear = localStorage.getItem('lastSavedYear');
-
-// If it's a new month or first run — reset progress
-if (lastSavedMonth === null || parseInt(lastSavedMonth) !== currentMonth || parseInt(lastSavedYear) !== currentYear) {
-  localStorage.setItem('completedSales', 0);
-  localStorage.setItem('lastSavedMonth', currentMonth);
-  localStorage.setItem('lastSavedYear', currentYear);
-}
-
-// After this, we safely get the current progress
-let completed = parseInt(localStorage.getItem('completedSales')) || 0;
-
-  </script>
-
 </body>
 
 </html>
+
