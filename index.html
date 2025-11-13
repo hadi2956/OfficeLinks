@@ -349,20 +349,18 @@ body {
             <thead>
                 <tr>
                     <th>Area</th>
-                    <th>Total Leads</th>
-                    <th>Group Name</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Tejgaon</td><td>80</td><td>Group 1</td></tr>
-                <tr><td>Gulshan 2</td><td>78</td><td>Group 1</td></tr>
-                <tr><td>Motijheel</td><td>75</td><td>Group 1</td></tr>
-                <tr><td>Gulshan 1</td><td>61</td><td>Group 1</td></tr>
-                <tr><td>Bailey Road</td><td>38</td><td>Group 1</td></tr>
-                <tr><td>Malibag</td><td>15</td><td>Group 1</td></tr>
-                <tr><td>Paltan</td><td>13</td><td>Group 1</td></tr>
-                <tr><td>New Market</td><td>12</td><td>Group 1</td></tr>
-                <tr><td>Fakirapul</td><td>4</td><td>Group 1</td></tr>
+                <tr><td>Tejgaon</td></tr>
+                <tr><td>Gulshan 2</td></tr>
+                <tr><td>Motijheel</td></tr>
+                <tr><td>Gulshan 1</td></tr>
+                <tr><td>Bailey Road</td></tr>
+                <tr><td>Malibag</td></tr>
+                <tr><td>Paltan</td></tr>
+                <tr><td>New Market</td></tr>
+                <tr><td>Fakirapul</td></tr>
             </tbody>
         </table>
     </div>
@@ -453,7 +451,7 @@ const LAST_UPDATE_KEY = 'lastSalesUpdateDate';
 // 1. Monthly Reset Logic
 function checkAndResetMonthlySales() {
     const now = new Date();
-    // Creates a YYYYMM string (e.g., '202405')
+    // Creates a YYYYMM string (e.g., '202511')
     const currentMonthKey = now.getFullYear().toString() + (now.getMonth() + 1).toString().padStart(2, '0');
     
     const storedMonthKey = localStorage.getItem(LAST_UPDATE_KEY);
